@@ -1,6 +1,6 @@
 import { byte } from "@logismika/crypto";
 import { DigitSize, Chars, Masks } from "./consts";
-import { AllowedChar } from "./types";
+import { allAllowedChars, AllowedChar } from "./types";
 
 export const checkConstants = () => {
     if (DigitSize !== Chars.length) {
@@ -42,6 +42,18 @@ export const getByte = (value: number | bigint): byte => {
     }
 
     return Number(value) as byte;
+}
+
+export const getAllowedChar = (ch: string): AllowedChar => {
+    if (ch.length !== 1) {
+        throw new Error(`Argument should be an allowed char, but "${ch}"`);
+    }
+
+    if (!allAllowedChars.includes(ch as AllowedChar)) {
+        throw new Error(`Argument should be an allowed char, but "${ch}"`);
+    }
+
+    return ch as AllowedChar;
 }
 
 export const buildIndexesMap = (chars: AllowedChar[]): Map<AllowedChar, byte> =>

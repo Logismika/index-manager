@@ -1,8 +1,8 @@
 import { byte } from "@logismika/crypto";
-import { Chars, DigitSize, Power } from "./consts";
+import { Chars, DigitSize, IndexesMap, Power } from "./consts";
 import xorIndexes from "./xorIndexes";
 import * as R from "ramda";
-import { getByte } from "./utils";
+import { getAllowedChar, getByte } from "./utils";
 
 class IndexManager {
 
@@ -12,24 +12,41 @@ class IndexManager {
         private readonly digitCount: byte = 6,
         private readonly magicNumber = 0xAACAA3AAAEAA5AAAn) {
     }
-   
+
     public get DigitCount(): byte {
         return this.digitCount;
     }
 
-    public numberToChars(number: number | bigint): string {
+    public numberToChars(number: bigint): string {
         if (number > this.maxNumber) {
-            throw new RangeError(`Number is too big: ${number}`);
+            throw new RangeError(`Number is too big: ${number}.`);
         }
 
-        return typeof number === "number" ?
-            this.numberToChars(BigInt(number)) :
-            xorIndexes(true, this.getIndexes(number)).map(index => Chars[index]!).join("");
+        return xorIndexes(true, this.getIndexes(number)).map(index => Chars[index]!).join("");
+    }
+
+    public charsToNumber(chars: string): bigint {
+        if (chars.length !== this.digitCount) {
+            throw new RangeError(`Length of input array should be ${this.digitCount} but ${chars.length}.`);
+        }
+
+        const indexes = xorIndexes(false, R.range(0, chars.length).map(i => IndexesMap.get(getAllowedChar(chars.charAt(i)))!));
+        return this.getNumber(indexes);
     }
 
     private getIndexes(number: bigint): byte[] {
         const n = number ^ (this.magicNumber % this.maxNumber);
         return R.range(0, this.digitCount).map(i => getByte((n >> BigInt(Power * i)) % BigInt(DigitSize)));
+    }
+
+    private getNumber(indexes: byte[]): bigint {
+        let n = 0n;
+        indexes.forEach((index, i) => {
+            n <<= BigInt(Power);
+            n |= BigInt(index);
+        });
+
+        return n ^ (this.magicNumber % this.maxNumber);
     }
 }
 
