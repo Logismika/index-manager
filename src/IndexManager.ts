@@ -17,9 +17,13 @@ class IndexManager {
         return this.digitCount;
     }
 
+    public get MaxNumber(): bigint {
+        return this.maxNumber;
+    }
+
     public numberToChars(number: bigint): string {
         if (number > this.maxNumber) {
-            throw new RangeError(`Number is too big: ${number}.`);
+            throw new RangeError(`Number is too big: ${number} > ${this.maxNumber}.`);
         }
 
         return xorIndexes(true, this.getIndexes(number)).map(index => Chars[index]!).join("");
@@ -41,7 +45,7 @@ class IndexManager {
 
     private getNumber(indexes: byte[]): bigint {
         let n = 0n;
-        indexes.forEach((index, i) => {
+        indexes.reverse().forEach((index) => {
             n <<= BigInt(Power);
             n |= BigInt(index);
         });

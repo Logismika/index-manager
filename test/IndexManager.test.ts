@@ -12,12 +12,10 @@ describe("IndexManager unit tests", () => {
 
     it("charsToNumber", () => {
         const indexManager = new IndexManager();
-        for (let i = 0n; i < 2000n; ++i) {
-            const source = BigInt(Math.round(Math.random() * Number.MAX_SAFE_INTEGER));
-            const chars = indexManager.numberToChars(i);
+        for (let i = 0; i < 2000; ++i) {
+            const source = BigInt(Math.round(Math.random() * Number(indexManager.MaxNumber)));
+            const chars = indexManager.numberToChars(source);
             const actual = indexManager.charsToNumber(chars);
-
-            console.log("charsToNumber number", {source, chars, actual});
             expect(source).eq(actual);
         }
     });
