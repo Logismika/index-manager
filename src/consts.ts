@@ -1,9 +1,9 @@
 import { byte } from "@logismika/crypto";
 import { AllowedChar } from "./types";
-import { buildIndexesMap, checkConstants } from "./utils";
+import { buildIndexesMap, checkConstants, getByte } from "./utils";
 
 export const Power: byte = 6;
-export const DigitSize = 1 << Power;
+export const DigitSize: byte = getByte(1 << Power);
 
 export const Chars: AllowedChar[] = [
     'n', 'a', 's', 'r', 'e', 'q', 't', 'b', 'j', 'w', 'u', 'i', 'l', 'm', 'f', 'y',

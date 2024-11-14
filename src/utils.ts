@@ -22,13 +22,15 @@ export const checkConstants = () => {
     }
 }
 
-export const getByte = (value: number): byte => {
-    if (!isFinite(value)) {
-        throw new Error(`Value should be a number, but ${value}`);
-    }
+export const getByte = (value: number | bigint): byte => {
+    if (typeof (value) === "number") {
+        if (!isFinite(value)) {
+            throw new Error(`Value should be a number, but ${value}`);
+        }
 
-    if (value % 1.0 !== 0) {
-        throw new Error(`Value should be integer, but ${value}`);
+        if (value % 1.0 !== 0) {
+            throw new Error(`Value should be integer, but ${value}`);
+        }
     }
 
     if (value < 0) {
@@ -39,7 +41,7 @@ export const getByte = (value: number): byte => {
         throw new Error(`Value should be less or equal 255, but ${value}`);
     }
 
-    return value as byte;
+    return Number(value) as byte;
 }
 
 export const buildIndexesMap = (chars: AllowedChar[]): Map<AllowedChar, byte> =>
