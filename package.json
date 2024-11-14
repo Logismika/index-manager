@@ -1,6 +1,7 @@
 {
-  "name": "@logismika/crypto",
-  "version": "0.2.4",
+  "name": "@logismika/index-manager",
+  "description": "Index manager library",
+  "version": "0.0.1-d1",
   "private": false,
   "main": "./build/cjs/index.js",
   "module": "./build/esm/index.js",
@@ -28,26 +29,24 @@
     "ts-node": "^10.9.2",
     "typescript": "^5"
   },
-  "description": "Crypto algorithms library",
   "directories": {
     "test": "test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Logismika/crypto.git"
+    "url": "git+https://github.com/Logismika/index-manager.git"
   },
   "keywords": [
-    "crypto",
-    "gost",
-    "kuznechik"
+    "index",
+    "manager"
   ],
   "author": "Logismika",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Logismika/crypto/issues"
+    "url": "https://github.com/Logismika/index-manager/issues"
   },
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/Logismika/crypto#readme"
+  "homepage": "https://github.com/Logismika/index-manager#readme"
 }
