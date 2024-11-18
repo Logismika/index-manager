@@ -1,7 +1,7 @@
 {
   "name": "@logismika/index-manager",
   "description": "Index manager library",
-  "version": "0.0.1-d1",
+  "version": "0.0.1",
   "private": false,
   "main": "./build/cjs/index.js",
   "module": "./build/esm/index.js",
